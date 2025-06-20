@@ -1,0 +1,102 @@
+
+import java.util.Scanner;
+
+class Student {
+    
+    String studentId;
+    String name;
+    int age;
+    String gender;
+    String course;
+    int[] marks = new int[5];
+    String[] subjects = {"Java", "C++", "English", "Python", "Software Engineering"};
+
+    
+    void register(String id, String name, int age, String gender) {
+        this.studentId = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    
+    void assignCourse(String courseName) {
+        this.course = courseName;
+    }
+
+  
+    void giveExamination(Scanner sc) {
+        System.out.println("Enter marks for 5 subjects (out of 100):");
+        for (int i = 0; i < subjects.length; i++) {
+            System.out.print(subjects[i] + ": ");
+            marks[i] = sc.nextInt();
+        }
+    }
+
+    
+    double calculatePercentage() {
+        int total = 0;
+        for (int mark : marks) {
+            total += mark;
+        }
+        return total / 5.0;
+    }
+
+    // Show result
+    void showResult() {
+        double percent = calculatePercentage();
+        System.out.println("Percentage: " + percent + "%");
+        if (percent >= 40) {
+            System.out.println("Result: Pass");
+        } else {
+            System.out.println("Result: Fail");
+        }
+    }
+
+    
+    void showDetails() {
+        System.out.println("\n--- Student Full Details ---");
+        System.out.println("Student ID : " + studentId);
+        System.out.println("Name       : " + name);
+        System.out.println("Age        : " + age);
+        System.out.println("Gender     : " + gender);
+        System.out.println("Course     : " + course);
+        System.out.println("Marks:");
+        for (int i = 0; i < subjects.length; i++) {
+            System.out.println("  " + subjects[i] + ": " + marks[i]);
+        }
+        showResult();
+    }
+}
+
+public class student_management {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Student s = new Student();
+
+        
+        
+        System.out.print("Enter Student ID: ");
+        String id = sc.nextLine();
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter Age: ");
+        int age = sc.nextInt();
+        sc.nextLine();  
+        System.out.print("Enter Gender: ");
+        String gender = sc.nextLine();
+        s.register(id, name, age, gender);
+
+        
+        System.out.print("Enter Course Name: ");
+        String course = sc.nextLine();
+        s.assignCourse(course);
+
+       
+        s.giveExamination(sc);
+        s.showDetails();
+
+        sc.close();
+    }
+}
+
